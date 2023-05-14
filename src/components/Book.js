@@ -1,8 +1,9 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import books from "../Books";
 
 function Book(props){
     const [status,setStatus]=useState(props.status);
+    
     console.log(status)
     function update(){
         setStatus(0);
