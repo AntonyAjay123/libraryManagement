@@ -15,7 +15,7 @@ export default function Home(){
     <tbody>
     {books.map((book)=>{
         return book.status===1?
-        <tr>
+        <tr key={book.isbn}>
         <th scope="row">{book.isbn}</th>
         <td>{book.title}</td>
         <td>{book.author}</td>

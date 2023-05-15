@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Book from "../Book"
 import Header from "../routes/header/Header";
+import { Outlet } from "react-router-dom";
 const Directory = (props)=>{
     const books=props.books;
     console.log(books)
@@ -9,6 +10,7 @@ const Directory = (props)=>{
     <div className="grid-container">
     {books.map((book)=><Book key={book.isbn} {...book}/>)}
     </div>
+    <Outlet/>
       </div>
 }
 

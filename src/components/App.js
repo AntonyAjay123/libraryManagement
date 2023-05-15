@@ -2,10 +2,11 @@
 import books from "../Books";
 import { useState,useEffect } from "react";
 import Directory from "./directory/directory.component";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes,useParams } from "react-router-dom";
 import Header from "./routes/header/Header";
 import Home from "./routes/home/Home";
 import SignIn from "./routes/signin/signin.component";
+import BookDetails from "./routes/bookDetails/bookDetails.component";
 
 function sigin(){
   return <h1>This is the sigin page</h1>
@@ -31,6 +32,7 @@ useEffect(()=>{
   <Route index element ={<Home/>}>
   </Route>
   <Route path="admin" element={<Directory getSearch={getSearch} books={filteredBooks}/>}/>
+  <Route path="bookdetail/:isbn" element={<BookDetails/>}/>
   </Route>
   </Routes>
   ;
