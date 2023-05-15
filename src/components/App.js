@@ -28,9 +28,9 @@ useEffect(()=>{
   }
   return <Routes>
   <Route path="/" element={<Header/>}>
-  <Route path="/signin" element={<SignIn/>}/>
   <Route index element ={<Home/>}>
   </Route>
+  <Route path="/signin" element={<SignIn/>}/>
   <Route path="admin" element={<Directory getSearch={getSearch} books={filteredBooks}/>}/>
   <Route path="bookdetail/:isbn" element={<BookDetails/>}/>
   </Route>
