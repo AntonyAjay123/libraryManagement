@@ -1,26 +1,28 @@
 
 import books from "../Books";
-import { useState,useEffect } from "react";
+import { useState,useEffect ,useContext} from "react";
 import Directory from "./directory/directory.component";
 import { Route, Routes,useParams } from "react-router-dom";
 import Header from "./routes/header/Header";
 import Home from "./routes/home/Home";
 import SignIn from "./routes/signin/signin.component";
 import BookDetails from "./routes/bookDetails/bookDetails.component";
+import { BookContext } from "../context/books.context";
 
 function sigin(){
   return <h1>This is the sigin page</h1>
 }
 
 export default function App() {
+  const {curBooks}= useContext(BookContext)
   const [search,setSearch] = useState("");
   const [typed,setTyped]= useState(false);
-  const [availableBooks,setBooks] = useState(books);
-  const [filteredBooks,setFilteredBooks] = useState(availableBooks);
+  // const [availableBooks,setBooks] = useState(curBooks);
+  const [filteredBooks,setFilteredBooks] = useState(curBooks);
 useEffect(()=>{
-  const newFilter = availableBooks.filter((book)=>book.title.toLowerCase().includes(search))
+  const newFilter = curBooks.filter((book)=>book.title.toLowerCase().includes(search))
   setFilteredBooks(newFilter)
-},[availableBooks,search])
+},[curBooks,search])
   function getSearch(event){
     console.log("here")
     const value=event.target.value;

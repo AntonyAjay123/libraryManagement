@@ -7,6 +7,8 @@ const Directory = (props)=>{
     console.log(books)
     return <div>
     <input  onChange={props.getSearch}type="text"></input>
+    <br></br>
+    <br></br>
     <div className="grid-container">
     {books.map((book)=><Book key={book.isbn} {...book}/>)}
     </div>

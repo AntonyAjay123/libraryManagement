@@ -1,7 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import books from "../../../Books";
+import { BookContext } from "../../../context/books.context";
 
 export default function Home(){
+  const {curBooks} = useContext(BookContext)
     return <Fragment>
     <table className="table">
   <thead>
@@ -13,7 +15,7 @@ export default function Home(){
     </tr>
     </thead>
     <tbody>
-    {books.map((book)=>{
+    {curBooks.map((book)=>{
         return book.status===1?
         <tr key={book.isbn}>
         <th scope="row">{book.isbn}</th>

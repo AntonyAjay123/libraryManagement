@@ -22,6 +22,7 @@ function Header(){
         <div className="heading"><h1>{title}{under}</h1></div>
         </Link>
         <div className="nav-links-container">
+        <Link className="nav-link" to ="/admin">Admin</Link>
         <Link className="nav-link" to="/signin">SignIn</Link>
         </div></header>
         <Outlet/>
