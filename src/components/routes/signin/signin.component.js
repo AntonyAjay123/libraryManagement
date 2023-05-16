@@ -1,44 +1,44 @@
 import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import users from "../../../Users";
+import { AuthContext } from "../../../context/auth.context";
+import { UserContext } from "../../../context/user.context";
+import { Navigate } from "react-router-dom";
 
 export default function SignIn(){
-    // const logGoogleUser = async()=>{
-    //     const response = await signInWithGooglePopup();
-    //     console.log(response);
-    // }
-    const [user,setUser] = useState({
+    const [user,setUserDetails] = useState({
+        id:"",
+        name:"",
         email:"",
         password:"",
         role:"",
     })
     const [error,setError]= useState("")
     const [signedIn,setSignedIn]=useState(false);
+    const {auth,setAuth} = useContext(AuthContext);
+    const {curUser,setUser} = useContext(UserContext);
+
+    //handling submit button
 
     function handleClick(event){
         event.preventDefault();
-        const authUser = users.filter((storedUser)=>storedUser.email==user.email && storedUser.password==user.password)
-        if(authUser.length==0){
-            setSignedIn(false);
-            setUser({
-                email:"",
-                password:"",
-                role:"",
-            })
-        setError("Invalid credentials");}
-        else {
-            setSignedIn(true);
-            const updateRole=authUser[0].role;
-            console.log("role",updateRole)
-            setUser(authUser[0])
-            setError("")
-            console.log("authorized",user);
+        const findUser = users.filter((dbUser)=>dbUser.email===user.email && dbUser.password===user.password);
+        if(findUser.length==0)
+        setError("Incorrect credentials")
+        else{
+            setAuth(true);
+            const foundUser=findUser[0];
+            setUser(()=>{
+                return {...foundUser}
+            });
         }
-    }
+        }
+
+    // ----Update user details entered by user
 
     function handleChange(event){
         const{name,value}=event.target;
-        setUser((prev)=>{
+        setUserDetails((prev)=>{
             return {
                 ...prev,
                 [name]:value
@@ -47,11 +47,11 @@ export default function SignIn(){
     }
 
     return <div>
-    <h1>this is the signin page</h1>
+    <h1></h1>
     <div>
     <form onSubmit={handleClick}>
     <div>
-    <h4>{error}</h4>
+    <h4 style={{color:'red'}}>{error}</h4>
     </div>
   <div className="form-group">
     <label htmlFor="exampleInputEmail1">Email address</label>
@@ -67,6 +67,7 @@ export default function SignIn(){
     <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
   </div>
   <button  className="btn btn-primary">Submit</button>
+  {auth && <Navigate to="/" replace={true}/>}
 </form>
     </div>
     
