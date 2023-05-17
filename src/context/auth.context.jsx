@@ -24,7 +24,6 @@ const authReducer = (state, action) => {
 				...state,
 				auth: payload,
 			};
-			break;
 		default:
 			throw new Error(`Unhandled Type ${type}`);
 	}
@@ -37,7 +36,6 @@ export const AuthProvider = ({ children }) => {
 	const setAuth = (authState) => {
 		dispatch({ type: AUTH_ACTION_TYPES.SET_AUTH_CONTEXT, payload: authState });
 	};
-	//const [auth, setAuth] = useState(false);
 	const value = { auth, setAuth };
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -66,9 +66,6 @@ export const BookProvider = ({ children }) => {
 		const updatedBooks = rent(curBooks, isbn);
 		setCurBooks(updatedBooks);
 	};
-	const updateBooks = (updatedBooks) => {
-		dispatch({ type: BOOK_ACTION_TYPES.SET_BOOKS, payload: updatedBooks });
-	};
 
 	const value = { curBooks, setCurBooks, deleteFromBooks, rentFromBooks };
 	return <BookContext.Provider value={value}>{children} </BookContext.Provider>;

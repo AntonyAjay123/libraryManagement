@@ -31,17 +31,10 @@ const userReducer = (state, action) => {
 	}
 };
 export const UserProvider = ({ children }) => {
-	// const [curUser,setUser] = useState({
-	//     name:"",
-	//     role:"",
-	//     email:"",
-	//     password:""
-	// })
 	const [state, dispatch] = useReducer(userReducer, INITIAL_STATE);
 	const { curUser } = state;
 
 	const setUser = (user) => {
-		console.log("user state", user);
 		dispatch({ type: USER_ACTION_TYPES.SET_USER, payload: user });
 	};
 	const value = { curUser, setUser };
