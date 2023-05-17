@@ -6,23 +6,9 @@ import Wishlist from "../wishlist/wishlist.component";
 import "../../../styles.css";
 
 export default function AvailableBooks() {
-	const { curBooks, setCurBooks } = useContext(BookContext);
+	const { curBooks, setCurBooks, rentFromBooks } = useContext(BookContext);
 	const { curUser, setUser } = useContext(UserContext);
-	function rent(event, isbn) {
-		console.log(isbn);
-		console.log("renting");
-		const filterBooks = curBooks.filter((book) => book.isbn !== isbn);
-		const findBook = JSON.parse(
-			JSON.stringify(curBooks.filter((book) => book.isbn == isbn))
-		);
-		findBook[0].rented = true;
-		curUser.rentedBooks.push(findBook[0]);
-		console.log("found book", findBook[0]);
-		setCurBooks(() => {
-			return [...filterBooks, ...findBook];
-		});
-		//console.log(curBooks);
-	}
+
 	return (
 		<div className="grid-container">
 			{curBooks.map((props) => {
@@ -35,7 +21,9 @@ export default function AvailableBooks() {
 						<Link to={`/bookdetail/${props.isbn}`}>Know more</Link>
 						<Outlet />{" "}
 						{props.rented == false ? (
-							<button onClick={(event) => rent(event, props.isbn)}>Rent</button>
+							<button onClick={(event) => rentFromBooks(curBooks, props.isbn)}>
+								Rent
+							</button>
 						) : (
 							<p>Rented</p>
 						)}
