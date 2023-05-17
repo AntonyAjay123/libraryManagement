@@ -12,8 +12,11 @@ import { AuthContext } from "../context/auth.context";
 import Unauthorized from "./unauthorised";
 import AvailableBooks from "./routes/availablebooks/availablebooks.component";
 import Dashboard from "./routes/dashboard/dashboard.component";
+import { useDispatch } from "react-redux";
+import { setUser } from "./store/user/user.action";
 
 export default function App() {
+	const dispatch = useDispatch();
 	const { curUser } = useContext(UserContext);
 	const { curBooks } = useContext(BookContext);
 	const { auth } = useContext(AuthContext);

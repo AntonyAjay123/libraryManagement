@@ -5,15 +5,16 @@ import { UserContext } from "../../../context/user.context";
 import "./header.styles.scss";
 import Wishlist from "../wishlist/wishlist.component";
 import { WishlistContext } from "../../../context/wishlist.context";
+import { useSelector } from "react-redux";
 
 function Header() {
+	const curUser = useSelect((state) => state.curUser);
 	const [title, setTitle] = useState(" ");
 	const [fullTitle] = useState("Library Management");
 	const [index, setIndex] = useState(0);
 	const [under, setUnder] = useState("");
 
 	const { auth, setAuth } = useContext(AuthContext);
-	const { curUser, setUser } = useContext(UserContext);
 	const { wishClicked, setWish } = useContext(WishlistContext);
 
 	useEffect(() => {
