@@ -37,10 +37,6 @@ const Book = (props) => {
                         .substring(0, 10)}</p>
                 <Link to={`/bookdetail/${props.isbn}`}>Know more
                 </Link>
-                {
-                    <div>curUser.role==="user" && <button onClick={event => rent(event, props.isbn)}>Rent</button></div>
-                    
-                }
                  
                 {curUser.role === "admin"
                     ? <button onClick={event => update(event, props.isbn)}>Delete</button>

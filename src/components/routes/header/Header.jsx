@@ -57,8 +57,7 @@ function Header() {
                 </Link>
                 <div className="nav-links-container">
                     {curUser.role === "user" && <Link className="nav-link" to={`/yourbooks/${curUser.id}`}>Dashboard</Link>}
-                    {auth===true && <Link onClick={handleWish}className="nav-link" to="">Wishlist</Link>}
-                    <Wishlist/>
+                    {auth===true && curUser.role=="user" && <Link onClick={handleWish}className="nav-link">Wishlist</Link>}
                     {curUser.role === "admin"
                         ? <Link className="nav-link" to="/admin">Admin Portal</Link>
                         : <Link className="nav-link" to="availablebooks">Available Books</Link>
@@ -73,6 +72,7 @@ function Header() {
             {auth == true
                 ? <h5>Hello {curUser.name}</h5>
                 : null}
+                <Wishlist/>
             <Outlet/>
         </div>
     )

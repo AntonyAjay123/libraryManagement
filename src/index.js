@@ -15,11 +15,11 @@ root.render(
     <BrowserRouter>
         <AuthProvider>
             <UserProvider>
+            <WishlistProvider>
                 <BookProvider>
-                    <WishlistProvider>
                         <App/>
-                    </WishlistProvider>
                 </BookProvider>
+                </WishlistProvider>
             </UserProvider>
         </AuthProvider>
     </BrowserRouter>

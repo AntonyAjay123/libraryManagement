@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import {BookContext} from '../../../context/books.context'
 import {UserContext} from "../../../context/user.context";
 import {Link, Outlet} from "react-router-dom";
+import Wishlist from "../wishlist/wishlist.component";
 import '../../../styles.css'
 
 export default function AvailableBooks() {

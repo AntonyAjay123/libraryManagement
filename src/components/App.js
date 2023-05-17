@@ -8,6 +8,7 @@ import SignIn from "./routes/signin/signin.component";
 import BookDetails from "./routes/bookDetails/bookDetails.component";
 import {BookContext} from "../context/books.context";
 import {UserContext} from "../context/user.context";
+import { AuthContext } from "../context/auth.context";
 import Unauthorized from "./unauthorised";
 import AvailableBooks from "./routes/availablebooks/availablebooks.component"
 import Dashboard from './routes/dashboard/dashboard.component'
@@ -15,6 +16,7 @@ import Dashboard from './routes/dashboard/dashboard.component'
 export default function App() {
     const {curUser} = useContext(UserContext)
     const {curBooks} = useContext(BookContext)
+    const{auth}=useContext(AuthContext)
     const [search,
         setSearch] = useState("");
     const [typed,
@@ -41,7 +43,7 @@ export default function App() {
                     books = {
                         filteredBooks} />}/>
                 : <Route path="admin" element={< Unauthorized />}/>}
-            {curUser.role === "user" && <Route path="availablebooks" element={< AvailableBooks />}/>}
+            <Route path="availablebooks" element={ auth===true? < AvailableBooks /> :<Unauthorized/>}/>
             {curUser.role === "user" && <Route path="yourbooks/:id" element={< Dashboard />}/>}
             <Route path="bookdetail/:isbn" element={< BookDetails />}/>
         </Route>
