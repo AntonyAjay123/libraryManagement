@@ -6,9 +6,12 @@ import "./header.styles.scss";
 import Wishlist from "../wishlist/wishlist.component";
 import { WishlistContext } from "../../../context/wishlist.context";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/user/user.action";
 
 function Header() {
-	const curUser = useSelect((state) => state.curUser);
+	const dispatch = useDispatch();
+	const curUser = useSelector((state) => state.user.curUser);
 	const [title, setTitle] = useState(" ");
 	const [fullTitle] = useState("Library Management");
 	const [index, setIndex] = useState(0);
@@ -30,7 +33,7 @@ function Header() {
 
 	function handleSignOut() {
 		setAuth(false);
-		setUser({ name: "", role: "", email: "", password: "" });
+		dispatch(setUser({ name: "", role: "", email: "", password: "" }));
 		return <Navigate to="/" replace={true} />;
 	}
 

@@ -4,8 +4,12 @@ import users from "../../../Users";
 import { AuthContext } from "../../../context/auth.context";
 import { UserContext } from "../../../context/user.context";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/user/user.action";
 
 export default function SignIn() {
+	const dispatch = useDispatch();
 	const [user, setUserDetails] = useState({
 		id: "",
 		name: "",
@@ -16,7 +20,8 @@ export default function SignIn() {
 	const [error, setError] = useState("");
 	const [signedIn, setSignedIn] = useState(false);
 	const { auth, setAuth } = useContext(AuthContext);
-	const { curUser, setUser } = useContext(UserContext);
+	//const { curUser, setUser } = useContext(UserContext);
+	const curUser = useSelector((state) => state.user.curUser);
 
 	//handling submit button
 
@@ -30,7 +35,7 @@ export default function SignIn() {
 		else {
 			setAuth(true);
 			const foundUser = findUser[0];
-			setUser(foundUser);
+			dispatch(setUser(foundUser));
 		}
 	}
 

@@ -13,11 +13,13 @@ import Unauthorized from "./unauthorised";
 import AvailableBooks from "./routes/availablebooks/availablebooks.component";
 import Dashboard from "./routes/dashboard/dashboard.component";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { setUser } from "./store/user/user.action";
 
 export default function App() {
 	const dispatch = useDispatch();
-	const { curUser } = useContext(UserContext);
+	//const { curUser } = useContext(UserContext);
+	const curUser = useSelector((state) => state.user.curUser);
 	const { curBooks } = useContext(BookContext);
 	const { auth } = useContext(AuthContext);
 	const [search, setSearch] = useState("");

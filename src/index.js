@@ -9,7 +9,6 @@ import { UserContext, UserProvider } from "./context/user.context";
 import { WishlistProvider } from "./context/wishlist.context";
 import { Provider } from "react-redux";
 import { setUser } from "./components/store/user/user.action";
-
 import { store } from "./components/store/store";
 
 const rootElement = document.getElementById("root");

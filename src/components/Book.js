@@ -3,12 +3,14 @@ import books from "../Books";
 import { Link, Outlet, Routes } from "react-router-dom";
 import { BookContext } from "../context/books.context";
 import { UserContext } from "../context/user.context";
+import { useSelector } from "react-redux";
 
 const Book = (props) => {
 	const [status, setStatus] = useState(props.status);
 	const { curBooks, setCurBooks, deleteFromBooks, rentFromBooks } =
 		useContext(BookContext);
-	const { curUser } = useContext(UserContext);
+	//const { curUser } = useContext(UserContext);
+	const curUser = useSelector((state) => state.user.curUser);
 	function update(event, book) {
 		deleteFromBooks(curBooks, book);
 	}

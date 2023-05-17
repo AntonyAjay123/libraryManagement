@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useReducer } from "react";
 import { UserContext } from "./user.context";
 import books from "../Books";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const BookContext = createContext({
 	curBooks: null,
@@ -40,7 +42,8 @@ const bookReducer = (state, action) => {
 };
 
 export const BookProvider = ({ children }) => {
-	const { curUser } = useContext(UserContext);
+	// const { curUser } = useContext(UserContext);
+	const curUser = useSelector((state) => state.user.curUser);
 	function rent(curBooks, isbn) {
 		console.log(curBooks);
 		const filterBooks = curBooks.filter((book) => book.isbn !== isbn);
