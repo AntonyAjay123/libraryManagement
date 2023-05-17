@@ -6,22 +6,15 @@ import { UserContext } from "../context/user.context";
 
 const Book = (props) => {
 	const [status, setStatus] = useState(props.status);
-	const { curBooks, setCurBooks, deleteBook, rent } = useContext(BookContext);
+	const { curBooks, setCurBooks, deleteFromBooks, rentFromBooks } =
+		useContext(BookContext);
 	const { curUser } = useContext(UserContext);
 	function update(event, book) {
-		console.log("updatinnnngg");
-		// setCurBooks((prev) => {
-		// 	console.log("here context", prev, isbn);
-		// 	const filtered = prev.filter((book) => book.isbn != isbn);
-		// 	return [...filtered];
-		// });
-
-		// setStatus(0);
-		deleteBook(curBooks, book);
+		deleteFromBooks(curBooks, book);
 	}
 
 	function rentBook(event, isbn) {
-		rent(curBooks, isbn);
+		rentFromBooks(curBooks, isbn);
 	}
 	function wishlist() {}
 
