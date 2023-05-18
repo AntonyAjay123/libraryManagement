@@ -17,13 +17,9 @@ const root = createRoot(rootElement);
 root.render(
 	<Provider store={store}>
 		<BrowserRouter>
-			<AuthProvider>
-				<WishlistProvider>
-					<BookProvider>
-						<App />
-					</BookProvider>
-				</WishlistProvider>
-			</AuthProvider>
+			<BookProvider>
+				<App />
+			</BookProvider>
 		</BrowserRouter>
 	</Provider>
 );

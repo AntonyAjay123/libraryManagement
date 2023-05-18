@@ -15,13 +15,16 @@ import Dashboard from "./routes/dashboard/dashboard.component";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setUser } from "./store/user/user.action";
+import { setAuth } from "./store/auth/auth.action";
 
 export default function App() {
 	const dispatch = useDispatch();
 	//const { curUser } = useContext(UserContext);
 	const curUser = useSelector((state) => state.user.curUser);
 	const { curBooks } = useContext(BookContext);
-	const { auth } = useContext(AuthContext);
+	//const {curBooks} = useSelector((state)=>sa)
+	//const { auth } = useContext(AuthContext);
+	const auth = useSelector((state) => state.auth.auth);
 	const [search, setSearch] = useState("");
 	const [typed, setTyped] = useState(false);
 	// const [availableBooks,setBooks] = useState(curBooks);

@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/user/user.action";
+import { setAuth } from "../../store/auth/auth.action";
 
 export default function SignIn() {
 	const dispatch = useDispatch();
@@ -19,7 +20,8 @@ export default function SignIn() {
 	});
 	const [error, setError] = useState("");
 	const [signedIn, setSignedIn] = useState(false);
-	const { auth, setAuth } = useContext(AuthContext);
+	//const { auth, setAuth } = useContext(AuthContext);
+	const auth = useSelector((state) => state.auth.auth);
 	//const { curUser, setUser } = useContext(UserContext);
 	const curUser = useSelector((state) => state.user.curUser);
 
@@ -33,7 +35,7 @@ export default function SignIn() {
 		);
 		if (findUser.length == 0) setError("Incorrect credentials");
 		else {
-			setAuth(true);
+			dispatch(setAuth(true));
 			const foundUser = findUser[0];
 			dispatch(setUser(foundUser));
 		}

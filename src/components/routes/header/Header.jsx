@@ -8,6 +8,8 @@ import { WishlistContext } from "../../../context/wishlist.context";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/user/user.action";
+import { setAuth } from "../../store/auth/auth.action";
+import { setWish } from "../../store/wishlist/wishlist.action";
 
 function Header() {
 	const dispatch = useDispatch();
@@ -17,9 +19,10 @@ function Header() {
 	const [index, setIndex] = useState(0);
 	const [under, setUnder] = useState("");
 
-	const { auth, setAuth } = useContext(AuthContext);
-	const { wishClicked, setWish } = useContext(WishlistContext);
-
+	//const { auth, setAuth } = useContext(AuthContext);
+	const auth = useSelector((state) => state.auth.auth);
+	//const { wishClicked, setWish } = useContext(WishlistContext);
+	const wishClicked = useSelector((state) => state.wish.wishClicked);
 	useEffect(() => {
 		if (index < fullTitle.length) {
 			setTimeout(() => {
@@ -32,15 +35,16 @@ function Header() {
 	}, [index, title, fullTitle, under]);
 
 	function handleSignOut() {
-		setAuth(false);
+		dispatch(setAuth(false));
 		dispatch(setUser({ name: "", role: "", email: "", password: "" }));
+		dispatch(setWish(false));
 		return <Navigate to="/" replace={true} />;
 	}
 
 	function handleWish() {
 		console.log(wishClicked, "clickedd");
-		if (wishClicked == false) setWish(true);
-		else setWish(false);
+		if (wishClicked == false) dispatch(setWish(true));
+		else dispatch(setWish(false));
 	}
 	return (
 		<div className="">
