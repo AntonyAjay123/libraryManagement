@@ -3,20 +3,34 @@ import books from "../Books";
 import { Link, Outlet, Routes } from "react-router-dom";
 import { BookContext } from "../context/books.context";
 import { UserContext } from "../context/user.context";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteFromBooks } from "./store/book/book.action";
 
 const Book = (props) => {
+	const dispatch = useDispatch();
 	const [status, setStatus] = useState(props.status);
-	const { curBooks, setCurBooks, deleteFromBooks, rentFromBooks } =
-		useContext(BookContext);
+	// const { curBooks, setCurBooks, deleteFromBooks, rentFromBooks } =
+	// 	useContext(BookContext);
+	const curBooks = useSelector((state) => state.books.curBooks);
 	//const { curUser } = useContext(UserContext);
 	const curUser = useSelector((state) => state.user.curUser);
 	function update(event, book) {
-		deleteFromBooks(curBooks, book);
+		dispatch(deleteFromBooks(curBooks, book));
 	}
+	// }
 
-	function rentBook(event, isbn) {
-		rentFromBooks(curBooks, isbn);
+	// function rentBook(event, isbn) {
+	// 	rentFromBooks(curBooks, isbn);
+	// }
+	function rent(event, isbn) {
+		console.log(curBooks);
+		const filterBooks = curBooks.filter((book) => book.isbn !== isbn);
+		const findBook = JSON.parse(
+			JSON.stringify(curBooks.filter((book) => book.isbn == isbn))
+		);
+		findBook[0].rented = true;
+		curUser.rentedBooks.push(findBook[0]);
+		return [...filterBooks, ...findBook];
 	}
 	function wishlist() {}
 
@@ -31,7 +45,7 @@ const Book = (props) => {
 			{curUser.role === "admin" ? (
 				<button onClick={(event) => update(event, props)}>Delete</button>
 			) : props.dashboard == false ? (
-				<button onClick={(event) => rentBook(event, props.isbn)}>Rent</button>
+				<button onClick={(event) => rent(event, props.isbn)}>Rent</button>
 			) : null}
 
 			<Outlet />

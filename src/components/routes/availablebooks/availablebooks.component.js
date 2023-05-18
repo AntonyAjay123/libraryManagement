@@ -4,10 +4,25 @@ import { UserContext } from "../../../context/user.context";
 import { Link, Outlet } from "react-router-dom";
 import Wishlist from "../wishlist/wishlist.component";
 import "../../../styles.css";
-
+import { useSelector, useDispatch } from "react-redux";
+import { setCurBooks } from "../../store/book/book.action";
 export default function AvailableBooks() {
-	const { curBooks, setCurBooks, rentFromBooks } = useContext(BookContext);
-	const { curUser, setUser } = useContext(UserContext);
+	const dispatch = useDispatch();
+	//const { curBooks, setCurBooks, rentFromBooks } = useContext(BookContext);
+	const curBooks = useSelector((state) => state.books.curBooks);
+	//const { curUser, setUser } = useContext(UserContext);
+	const curUser = useSelector((state) => state.user.curUser);
+	function rent(event, isbn) {
+		console.log(curBooks);
+		console.log(curUser);
+		const filterBooks = curBooks.filter((book) => book.isbn !== isbn);
+		const findBook = JSON.parse(
+			JSON.stringify(curBooks.filter((book) => book.isbn == isbn))
+		);
+		findBook[0].rented = true;
+		curUser.rentedBooks.push(findBook[0]);
+		dispatch(setCurBooks([...filterBooks, ...findBook]));
+	}
 
 	return (
 		<div className="grid-container">
@@ -21,9 +36,7 @@ export default function AvailableBooks() {
 						<Link to={`/bookdetail/${props.isbn}`}>Know more</Link>
 						<Outlet />{" "}
 						{props.rented == false ? (
-							<button onClick={(event) => rentFromBooks(curBooks, props.isbn)}>
-								Rent
-							</button>
+							<button onClick={(event) => rent(event, props.isbn)}>Rent</button>
 						) : (
 							<p>Rented</p>
 						)}

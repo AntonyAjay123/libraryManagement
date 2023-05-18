@@ -21,8 +21,8 @@ export default function App() {
 	const dispatch = useDispatch();
 	//const { curUser } = useContext(UserContext);
 	const curUser = useSelector((state) => state.user.curUser);
-	const { curBooks } = useContext(BookContext);
-	//const {curBooks} = useSelector((state)=>sa)
+	//const { curBooks } = useContext(BookContext);
+	const curBooks = useSelector((state) => state.books.curBooks);
 	//const { auth } = useContext(AuthContext);
 	const auth = useSelector((state) => state.auth.auth);
 	const [search, setSearch] = useState("");
